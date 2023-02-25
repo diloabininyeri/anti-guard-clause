@@ -1,9 +1,6 @@
 <?php
 
 namespace Zues\Less;
-
-use Closure;
-
 /**
  *
  */
