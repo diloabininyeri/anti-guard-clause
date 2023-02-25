@@ -2,6 +2,8 @@
 
 namespace Zues\Less;
 
+use Closure;
+
 /**
  *
  */
@@ -14,7 +16,7 @@ class Condition
     /**
      * @var ElseInterface|null $elseConditions
      */
-    private  ?ElseInterface $lessElse=null;
+    private ?ElseInterface $lessElse = null;
 
     /**
      * @param IfInterface $lessIf
@@ -47,6 +49,19 @@ class Condition
     }
 
     /**
+     * @param IfInterface $if
+     * @param callable(Condition $condtion):void $closure
+     * @return $this
+     */
+    public function ifNested(IfInterface $if, callable $closure): self
+    {
+
+        $closure($self = new self());
+        $this->ifConditions[] = new IfNested($if, $self);
+        return $this;
+    }
+
+    /**
      * @return mixed
      */
     public function getMake(): mixed
@@ -58,5 +73,21 @@ class Condition
         }
 
         return $this->lessElse?->make();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIfConditions(): array
+    {
+        return $this->ifConditions;
+    }
+
+    /**
+     * @return ElseInterface|null
+     */
+    public function getLessElse(): ?ElseInterface
+    {
+        return $this->lessElse;
     }
 }
