@@ -1,0 +1,19 @@
+{
+  "name": "zeus/anti-guard-clause",
+  "description": "a small library that will save you from typing tons of if-else",
+  "authors": [
+    {
+      "name": "Dılo sürücü",
+      "email": "berxudar@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Zues\\Less\\": "src"
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^7.21",
+    "phpunit/phpunit": "^9"
+  }
+}
