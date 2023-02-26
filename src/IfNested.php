@@ -8,7 +8,7 @@ class IfNested implements IfInterface
 {
     private Closure $resultClosure;
 
-    public function __construct(private readonly IfInterface $if, private readonly Condition $condition)
+    public function __construct(private readonly CheckInterface $check, private readonly Condition $condition)
     {
     }
 
@@ -45,7 +45,7 @@ class IfNested implements IfInterface
      */
     public function isTrue(): bool
     {
-        if (!$this->if->isTrue()) {
+        if (!$this->check->isTrue()) {
             return false;
         }
         foreach ($this->condition->getIfConditions() as $condition) {

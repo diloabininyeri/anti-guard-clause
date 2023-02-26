@@ -47,13 +47,12 @@ class Condition
     }
 
     /**
-     * @param IfInterface $if
+     * @param CheckInterface $if
      * @param callable(Condition $condtion):void $closure
      * @return $this
      */
-    public function ifNested(IfInterface $if, callable $closure): self
+    public function ifNested(CheckInterface $if, callable $closure): self
     {
-
         $closure($self = new self());
         $this->ifConditions[] = new IfNested($if, $self);
         return $this;

@@ -3,6 +3,7 @@
 
 use classes\Age;
 use classes\Man;
+use classes\CheckCondition;
 use classes\NestedIfTest;
 use classes\Woman;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,7 @@ class NestedConditionTest extends TestCase
         $condition = new Condition();
         $condition
             ->if(new Age(17))
-            ->ifNested(new Man('man'), new NestedIfTest())
+            ->ifNested(new CheckCondition(), new NestedIfTest())
             ->ifNot(new Woman('woman'));
 
         echo $condition->getMake();
