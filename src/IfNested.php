@@ -6,7 +6,7 @@ use Closure;
 
 class IfNested implements IfInterface
 {
-    private mixed $result;
+    private Closure $resultClosure;
 
     public function __construct(private readonly IfInterface $if, private readonly Condition $condition)
     {
@@ -17,7 +17,27 @@ class IfNested implements IfInterface
      */
     public function make(): mixed
     {
-        return $this->result;
+        return call_user_func($this->resultClosure);
+    }
+
+    private function setResult(mixed $result): void
+    {
+        $this->resultClosure = static fn() => $result;
+    }
+
+
+    /**
+     * @return bool
+     */
+    private function getReturnElse(): bool
+    {
+        if (null !== $this->condition->getLessElse()) {
+            $this->setResult(
+                $this->condition->getLessElse()->make()
+            );
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -30,22 +50,10 @@ class IfNested implements IfInterface
         }
         foreach ($this->condition->getIfConditions() as $condition) {
             if ($condition->isTrue()) {
-                $this->result = $condition->make();
+                $this->setResult($condition->make());
                 return true;
             }
         }
         return $this->getReturnElse();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getReturnElse(): bool
-    {
-        if (null !== $this->condition->getLessElse()) {
-            $this->result = $this->condition->getLessElse()->make();
-            return true;
-        }
-        return false;
     }
 }

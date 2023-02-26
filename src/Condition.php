@@ -1,6 +1,7 @@
 <?php
 
 namespace Zues\Less;
+
 /**
  *
  */
