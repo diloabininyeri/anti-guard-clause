@@ -1,7 +1,10 @@
 <?php
 
-namespace classes;
 
+use classes\Age;
+use classes\Man;
+use classes\NestedIfTest;
+use classes\Woman;
 use PHPUnit\Framework\TestCase;
 use Zues\Less\Condition;
 

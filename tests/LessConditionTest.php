@@ -3,9 +3,10 @@
 use classes\Age;
 use classes\ElseGender;
 use classes\Man;
+use PHPUnit\Framework\TestCase;
 use Zues\Less\Condition;
 
-class TestLessCondition extends \PHPUnit\Framework\TestCase
+class LessConditionTest extends TestCase
 {
 
 
