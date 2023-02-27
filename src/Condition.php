@@ -47,13 +47,16 @@ class Condition
     }
 
     /**
-     * @param CheckInterface $if
+     * @param CheckInterface|bool $if
      * @param callable(Condition $condtion):void $closure
      * @return $this
      */
-    public function ifNested(CheckInterface $if, callable $closure): self
+    public function ifNested(CheckInterface|bool $if, callable $closure): self
     {
         $closure($self = new self());
+        if (is_bool($if)) {
+            $if = new BooleanAdapter($if);
+        }
         $this->ifConditions[] = new IfNested($if, $self);
         return $this;
     }
